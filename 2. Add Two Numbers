@@ -9,36 +9,25 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int v1,v2,carry = 0;
-        ListNode *answer, *ptr;
-        answer = (ListNode*) malloc(sizeof(ListNode));
-        ptr = answer;
-        while(1){
-            if ( l1->next != NULL)
+        int v1,v2,carry = 0, sum;
+        ListNode head(0), *ptr = &head;
+        while(l1 != NULL || l2 != NULL){
+            if ( l1 != NULL)
             {
                 v1 = l1->val;
                 l1 = l1->next;
             }else v1 = 0;
-            if ( l2->next != NULL)
+            if ( l2 != NULL)
             {
                 v2 = l2->val;
                 l2 = l2->next;
             }else v2 = 0;
-            ptr->val = (v1 + v2 + carry);
-            carry = 0;
-            if (ptr->val > 9)
-            {
-                carry = 1;
-                ptr->val /= 10;
-            }
-            if (l1->next == NULL || l2->next == NULL)
-            {
-                ptr->next = NULL;
-                break;
-            }
-            ptr->next = (ListNode*) malloc(sizeof(ListNode));
+            sum = (v1 + v2 + carry);
+            carry = (sum > 9) ? 1 : 0;
+            ptr->next = new ListNode(sum % 10);
             ptr = ptr->next;
         }
-        return (answer);
+        if (carry) ptr->next = new ListNode(carry);
+        return (head.next);
     }
 };
