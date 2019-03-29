@@ -1,0 +1,34 @@
+#include <random>
+#include <cmath>
+
+class Solution {
+private: double radius, x_center, y_center;
+public:
+    Solution(double radius, double x_center, double y_center) {
+        this->radius = radius;
+        this->x_center = x_center;
+        this->y_center = y_center;
+    }
+    
+    vector<double> randPoint() {
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::default_random_engine re(seed);
+        
+        std::uniform_real_distribution<double> unif_dist(- radius, radius + 0.00001);
+        
+        double D = unif_dist(re);
+        
+        std::uniform_real_distribution<double> unif_y(y_center - D, y_center + D + 0.00001);
+        
+        double y = unif_y(re);
+        double x = sqrt(D*D - (y - y_center)*(y - y_center));
+        vector<double> point = {x,y};
+        return point;
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(radius, x_center, y_center);
+ * vector<double> param_1 = obj->randPoint();
+ */
