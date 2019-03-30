@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int dominantIndex(vector<int>& nums) 
+    {
+        int size = nums.size();
+        if (size == 1)
+            return 0;
+        map <int,int> mapz;
+        for (int k = 0; k < size ; k++)
+            mapz.insert(pair<int,int>( nums[k], k));
+        map<int,int>::reverse_iterator rit, rit2;
+        rit = mapz.rbegin();
+        rit2 = mapz.rbegin();
+        rit2++;
+        if ( rit->first >= 2*((rit2)->first))
+            return rit->second;
+        return -1;
+    }
+};
