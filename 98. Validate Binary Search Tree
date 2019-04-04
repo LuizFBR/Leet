@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool checkTree(TreeNode* root, vector <pair<bool,int>>& vec)
+    {
+        if (root == NULL)
+            return true;
+        if ( !vec.empty())
+        {
+            std::vector <pair<bool,int>>::reverse_iterator rit;
+            for ( rit = vec.rbegin() ; rit != vec.rend() ; ++rit)
+                if ((!rit->first && root->val >= rit->second) || (rit->first && root->val <= rit->second))
+                    return false;
+        }
+        vec.push_back(pair<bool,int>(false, root->val));
+        bool b1 = checkTree(root->left, vec);
+        vec.pop_back();
+        
+        vec.push_back(pair<bool,int>(true, root->val));
+        bool b2 = checkTree(root->right, vec);
+        vec.pop_back();
+        
+        return b1 && b2;
+        
+    }
+    bool isValidBST(TreeNode* root) {
+        vector <pair<bool,int>> vec;
+        return checkTree(root, vec);
+    }
+};
