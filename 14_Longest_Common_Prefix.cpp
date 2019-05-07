@@ -21,3 +21,5 @@ public:
         return output;
     }
 };
+//Runtime: 8 ms, faster than 98.55% of C++ online submissions for Longest Common Prefix.
+//Memory Usage: 8.8 MB, less than 99.82% of C++ online submissions for Longest Common Prefix.
