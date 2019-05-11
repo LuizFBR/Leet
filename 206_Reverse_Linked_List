@@ -1,0 +1,27 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* result = NULL;
+        if( head != NULL && head->next == NULL )
+            result = head;
+        else if (head != NULL)
+        {
+            result = reverseList( head->next );
+            ListNode *p1 = result;
+            while( p1->next != NULL ) p1 = p1->next;
+            p1->next = head;
+            head->next = NULL;
+        }
+        return result;
+    }
+};
+//Runtime: 36 ms, faster than 19.70% of C++ online submissions for Reverse Linked List.
+//Memory Usage: 9.4 MB, less than 5.07% of C++ online submissions for Reverse Linked List.
