@@ -1,0 +1,58 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode *sol, *sol_p;
+        ListNode Head = ListNode(0);
+        sol = &Head;
+        sol_p = sol;
+        
+        if( l1 != NULL ) sol = l1;
+        else if( l2 != NULL ) sol = l2;
+        else
+        {
+            bool l1_is_NULL = false, l2_is_NULL = false;
+            while( 1 )
+            {
+                if ( l1 == NULL )l1_is_NULL = true;
+                if ( l2 == NULL )l2_is_NULL = true;
+                
+                if( l1_is_NULL && l2_is_NULL ) break;
+                
+                else if( l1_is_NULL == true && l2_is_NULL != true )
+                {
+                    ListNode newNode = ListNode( l2->val );
+                    l2 = l2->next;
+                    sol_p->next = &newNode;
+                }
+                else if( l1_is_NULL != true && l2_is_NULL == true )
+                {
+                    ListNode newNode = ListNode( l1->val );
+                    l1 = l1->next;
+                    sol_p->next = &newNode;
+                }
+                else if( l1->val >= l2->val )
+                {
+                    ListNode newNode = ListNode(l2->val);
+                    l2 = l2->next;
+                    sol_p->next = &newNode;
+                }
+                else
+                {
+                    ListNode newNode = ListNode( l1->val );
+                    l1 = l1->next;
+                    sol_p->next = &newNode;
+                }
+                sol_p = sol_p->next;
+            }
+        }
+        return sol->next;
+    }
+};
